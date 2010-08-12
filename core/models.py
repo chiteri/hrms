@@ -4,7 +4,15 @@ import datetime
 
 class Nationality(models.Model): 
     country_code = models.IntegerField(blank=False, unique=True) 
-    nationality_name = models.CharField(blank=False, unique=True, max_length=50)
+    country = models.CharField(blank=False, unique=True, max_length=50)
+    nationality_name = models.CharField(blank=False, unique=True, max_length=50) 
+
+    class Meta: 
+        verbose_name = "Nationalities"
+        verbose_name_plural = "Nationalities" 
+
+    def __unicode__(self): 
+        return self.nationality_name 
 
 # Create your models here. 	
 class UserProfile(models.Model): 
@@ -72,12 +80,12 @@ class UserProfile(models.Model):
 
 # Model the department first, the Employee entity needs it 			
 class Department(models.Model): 
-    name=models.CharField(max_length=30, blank=False) 
-    manager=models.ForeignKey(User, unique=True) #, edit_inline=models.TABULAR, num_in_admin=1,min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0) 	
+    name_of_department=models.CharField(max_length=30, blank=False) 
+    manager=models.ForeignKey(User, unique=False) #, edit_inline=models.TABULAR, num_in_admin=1,min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0) 	
     description=models.TextField()
 	
     def __unicode__(self): 
-        return self.name 
+        return self.name_of_department 
 		
 # Create the employee model 
 class Employee(UserProfile): 
@@ -130,6 +138,8 @@ class Employee(UserProfile):
     )	
   
 	# Core Fields 
+    national_id_or_passport = models.CharField(blank=False, max_length=10, 
+	help_text='National ID number (Foreign emmployees should provide Passport numbers.)')
     employee_number = models.CharField(blank=False, max_length=10) 
     date_of_hire = models.DateField(blank=False) 
     department = models.ForeignKey(Department,blank=False) 
@@ -146,4 +156,7 @@ class Employee(UserProfile):
     # Documents checklist 
 	
     # 
+	
+    def __unicode__(self): 
+        return "%s %s's profile "%(self.user.first_name, self.user.last_name )
 	
