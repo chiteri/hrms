@@ -64,7 +64,7 @@ class UserProfile(models.Model):
     citizen = models.BooleanField(default=True)
 	
     # Contact Information 
-    cellphone_number = models.CharField(blank=False, max_length=20)
+    cellphone_number = models.CharField(blank=False, max_length=20, unique=True)
     postal_address = models.CharField(blank=False, max_length=50)
     postal_code = models.CharField(blank=True, max_length=10) 
     physical_address = models.CharField(blank=False, max_length=50) 	
@@ -81,7 +81,7 @@ class UserProfile(models.Model):
 
 # Model the department first, the Employee entity needs it 			
 class Department(models.Model): 
-    name_of_department=models.CharField(max_length=30, blank=False) 
+    name_of_department=models.CharField(max_length=30, blank=False, unique=True) 
     manager=models.ForeignKey(User, unique=False) #, edit_inline=models.TABULAR, num_in_admin=1,min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0) 	
     description=models.TextField()
 	
@@ -139,18 +139,18 @@ class Employee(UserProfile):
     )	
   
 	# Core Fields 
-    national_id_or_passport = models.CharField(blank=False, max_length=10, 
+    national_id_or_passport = models.CharField(blank=False, max_length=10, unique=True, 
 	help_text='National ID number (Foreign employees should provide Passport number).')
-    employee_number = models.CharField(blank=False, max_length=10) 
+    employee_number = models.CharField(blank=False, max_length=10, unique=True) 
     date_of_hire = models.DateField(blank=False) 
     department = models.ForeignKey(Department,blank=False) 
     # supervisor=models.ForeignKey(User, blank=True) 
     job_title = models.IntegerField(max_length=2, blank=False, choices=JOB_TITLE_CHOICES)
     employee_category = models.IntegerField(max_length=1, blank=False, choices=EMPLOYEE_CATEGORY_CHOICES)
     contract_type = models.IntegerField(max_length=1, blank=False, choices=CONTRACT_TYPE_CHOICES)
-    pin_number = models.CharField(blank=False, max_length=10)
-    nssf_number = models.CharField(blank=False, max_length=15)
-    nhif_number = models.CharField(blank=False, max_length=15)
+    pin_number = models.CharField(blank=False, max_length=10, unique=True)
+    nssf_number = models.CharField(blank=False, max_length=15, unique=True)
+    nhif_number = models.CharField(blank=False, max_length=15, unique=True)
 	
     # Educational Information 
 
@@ -167,10 +167,11 @@ class HomeContact(models.Model):
     zip_or_postal_code = models.CharField(blank=True, max_length=10) 
     city_or_state = models.CharField(blank=True, max_length=20)  
     country_of_birth = models.CharField(blank=False, max_length=20) 
-    employee = models.ForeignKey(Employee, unique=True) # , edit_inline=models.STACKED, num_in_admin=1,min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0
+    employee = models.ForeignKey(Employee, unique=True) # An employee has a single home contact 
+    # , edit_inline=models.STACKED, num_in_admin=1,min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0
 
     def __unicode__(self): 
-        return u"%s | %s"%(self.postal_address, self.country_of_birth)
+        return u"%s - %s, %s | %s"%(self.zip_or_postal_code, self.postal_address, self.city_or_state, self.country_of_birth.upper())
 		
 # In case the employees go for summer, these are their contacts 
 class SummerContact(models.Model): 
@@ -181,7 +182,7 @@ class SummerContact(models.Model):
     employee = models.ForeignKey(Employee, unique=True) #, edit_inline=models.STACKED, num_in_admin=1,  min_num_in_admin=1, max_num_in_admin=2,num_extra_on_change=1) 
 
     def __unicode__(self): 
-        return u"%s | %s"%(self.cellphone_no, self.postal_address)
+        return u"%s (%s - %s) | %s"%( self.cellphone_no, self.zip_or_postal_code, self.postal_address, self.city_or_state.upper())
 	
 # The details of Emergency Contacts 
 class NextOfKin(models.Model): 
@@ -225,7 +226,7 @@ class NextOfKin(models.Model):
     relationship = models.IntegerField(blank=False, max_length=2, choices=RELATIONS_CHOICES) 
     telephone_number = models.CharField(blank=True, max_length=20) 
     location = models.CharField(blank=True, max_length=40, help_text='Place of work, school, home (Optional).') 
-    employee = models.ForeignKey(Employee, unique=True) 
+    employee = models.ForeignKey(Employee, unique=False) # An employee can have e number of kinsmen
 
     def __unicode__(self): 
         return u"%s %s"%(self.first_names, self.surname)
@@ -246,7 +247,7 @@ class Dependant(models.Model):
     first_names = models.CharField(blank=False, max_length=30) 
     surname = models.CharField(blank=False, max_length=20) 
     date_of_birth = models.DateField(blank=False)  
-    employee = models.ForeignKey(Employee, unique=True) 
+    employee = models.ForeignKey(Employee, unique=False) # Allow an employe to have multiple dependants 
 	# Think about the case where a dependant has both guardians / parents as Staff members 
     
     def __unicode__(self): 
@@ -271,9 +272,36 @@ class AcademicQualification(models.Model):
     institution_issued = models.CharField(blank=False, max_length=30) 
     date_of_issue =  models.DateField(blank=False)	
     type = models.IntegerField(blank=False, max_length=1, choices=QUALIFICATION_TYPES) 
-    employee = models.ForeignKey(Employee, unique=True) 
+    score = models.CharField(blank=False, max_length=15)
+    employee = models.ForeignKey(Employee, unique=False) # An employee should can have several Academic qualifications 
 	
     def __unicode__(self): 
-        return u"%s"%(self.title)
-    
-    
+        return u"%s"%(self.title) 
+
+class WorkPermit(models.Model): 
+    valid_from = models.DateField(blank=False, null=False, help_text="Date from when the work permit is effective.") 
+    valid_until = models.DateField(blank=False, null=False, help_text="Date until to when work permit is effective.")
+
+# We define our financial periods here 		
+class FinancialPeriod(models.Model): 
+    begins_from = models.DateField(blank=False, null=False, help_text="Date when the financial period starts.") 
+    ends_at = models.DateField(blank=False, null=False, help_text="Date when the financial period ends.") 
+    description = models.TextField(blank=False, null=False, help_text="A short description of the period.") 
+	
+class DocumentsChecklist(models.Model): 
+    work_permit = models.BooleanField(blank=True, default=False) 
+    re_entry_permit = models.BooleanField(blank=True, default=False) 
+    pin_card = models.BooleanField(blank=True, default=False) 
+    medical_certificate = models.BooleanField(blank=True, default=False) 
+    photographs = models.BooleanField(blank=True, default=False) 
+    id_or_passport_copies = models.BooleanField(blank=True, default=False) 
+    physical_exam_forms = models.BooleanField(blank=True, default=False) 
+    tax_forms = models.BooleanField(blank=True, default=False) 
+    direct_deposit_forms = models.BooleanField(blank=True, default=False) 
+    sick_bank_membership_forms =  models.BooleanField(blank=True, default=False) 
+    nssf = models.BooleanField(blank=True, default=False) 
+    nhif = models.BooleanField(blank=True, default=False) 
+    certificate_of_good_conduct = models.BooleanField(blank=True, default=False) 
+    transcripts = models.BooleanField(blank=True, default=False) 
+    degree_certificate = models.BooleanField(blank=True, default=False) 
+    employee = models.ForeignKey(Employee, unique=True)    

@@ -1,6 +1,6 @@
 from django.contrib import admin 
-from hrms.core.models import Employee, Department, Nationality,\
-HomeContact, SummerContact, Spouse, Dependant, NextOfKin, AcademicQualification   
+from hrms.core.models import Employee, Department, Nationality, FinancialPeriod,\
+HomeContact, SummerContact, Spouse, Dependant, NextOfKin, AcademicQualification, DocumentsChecklist   
 from django.contrib.auth.models import User 
 
 class SpouseInline(admin.TabularInline):
@@ -33,6 +33,11 @@ class AcademicQualificationInline(admin.TabularInline):
     extra = 3 
     max_num = 6 
 	
+class DocumentsChecklistInline(admin.TabularInline):
+    model = DocumentsChecklist 
+    extra = 3 
+    max_num = 6 
+	
 class EmployeeInline(admin.StackedInline):
     model = Employee
     fk_name = 'user'
@@ -50,7 +55,8 @@ class EmployeeInline(admin.StackedInline):
 	
 class EmployeeAdmin(admin.ModelAdmin):
     list_display=('user', 'employee_number', 'gender', 'date_of_hire', 'department', 'job_title', 'contract_type' )
-    inlines = [SpouseInline, HomeContactInline, SummerContactInline, NextOfKinInline,  DependantInline, AcademicQualificationInline ] 
+    inlines = [SpouseInline, HomeContactInline, SummerContactInline, NextOfKinInline,  DependantInline, 
+	AcademicQualificationInline, DocumentsChecklistInline ] 
     list_filter = ['citizen', 'gender', 'employee_category'] 
     fieldsets = [  ('User Information', {'fields': ['user'], 'classes': [ 'extrapretty']}),
         ('Personal Information', {'fields': ['date_of_birth', ('gender', 'marital_status'), 'blood_group', 
@@ -76,6 +82,11 @@ class NationalityAdmin (admin.ModelAdmin):
     list_filter = ['country_code'] 
     search_fields = ['country_code', 'country'] 
 	
+class FinancialPeriodAdmin(admin.ModelAdmin): 
+    list_display=('begins_from', 'ends_at', 'description') 
+    list_filter = ['begins_from'] 
+    # search_fields = ['country_code', 'country'] 
+	
 class DepartmentAdmin (admin.ModelAdmin): 
     # fieldsets=[
 	#(None, {'fields':['body']}),  
@@ -89,4 +100,5 @@ admin.site.unregister(User)
 admin.site.register(User, NewUserAdmin)
 admin.site.register(Department, DepartmentAdmin) 
 admin.site.register(Nationality, NationalityAdmin) 
-admin.site.register(Employee, EmployeeAdmin)
+admin.site.register(Employee, EmployeeAdmin) 
+admin.site.register(FinancialPeriod, FinancialPeriodAdmin) 
