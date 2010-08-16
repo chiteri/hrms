@@ -93,7 +93,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin', 
-    'hrms.core', 
+    'hrms.core',  
+    'hrms.leaves', 
 )
 
 # Allow the system to use the Employee model in-built as the entity having profiles info 

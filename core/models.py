@@ -144,7 +144,7 @@ class Employee(UserProfile):
     employee_number = models.CharField(blank=False, max_length=10, unique=True) 
     date_of_hire = models.DateField(blank=False) 
     department = models.ForeignKey(Department,blank=False) 
-    # supervisor=models.ForeignKey(User, blank=True) 
+    supervisor=models.ForeignKey(User, blank=True, related_name='employees_supervisor') 
     job_title = models.IntegerField(max_length=2, blank=False, choices=JOB_TITLE_CHOICES)
     employee_category = models.IntegerField(max_length=1, blank=False, choices=EMPLOYEE_CATEGORY_CHOICES)
     contract_type = models.IntegerField(max_length=1, blank=False, choices=CONTRACT_TYPE_CHOICES)
@@ -287,6 +287,9 @@ class FinancialPeriod(models.Model):
     begins_from = models.DateField(blank=False, null=False, help_text="Date when the financial period starts.") 
     ends_at = models.DateField(blank=False, null=False, help_text="Date when the financial period ends.") 
     description = models.TextField(blank=False, null=False, help_text="A short description of the period.") 
+
+    def __unicode__(self): 
+        return u"%s [%s - %s]"%(self.description, self.begins_from, self.ends_at)
 	
 class DocumentsChecklist(models.Model): 
     work_permit = models.BooleanField(blank=True, default=False) 
