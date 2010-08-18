@@ -1,6 +1,6 @@
 from django.contrib import admin 
-from hrms.core.models import Employee, Department, Nationality, FinancialPeriod,\
-HomeContact, SummerContact, Spouse, Dependant, NextOfKin, AcademicQualification, DocumentsChecklist   
+from hrms.core.models import Employee, Department, Nationality, FinancialPeriod,HomeContact, SummerContact,\
+Spouse, Dependant, NextOfKin, AcademicQualification, WorkPermit, DocumentsChecklist, LeaveCategory   
 from django.contrib.auth.models import User 
 
 class SpouseInline(admin.TabularInline):
@@ -33,6 +33,11 @@ class AcademicQualificationInline(admin.TabularInline):
     extra = 3 
     max_num = 6 
 	
+class WorkPermitInline(admin.TabularInline):
+    model = WorkPermit 
+    extra = 1 
+    max_num = 10 
+	
 class DocumentsChecklistInline(admin.TabularInline):
     model = DocumentsChecklist 
     extra = 3 
@@ -56,13 +61,14 @@ class EmployeeInline(admin.StackedInline):
 class EmployeeAdmin(admin.ModelAdmin):
     list_display=('user', 'employee_number', 'gender', 'date_of_hire', 'department', 'job_title', 'contract_type' )
     inlines = [SpouseInline, HomeContactInline, SummerContactInline, NextOfKinInline,  DependantInline, 
-	AcademicQualificationInline, DocumentsChecklistInline ] 
+	AcademicQualificationInline, WorkPermitInline, DocumentsChecklistInline ] 
     list_filter = ['citizen', 'gender', 'employee_category'] 
     fieldsets = [  ('User Information', {'fields': ['user'], 'classes': [ 'extrapretty']}),
         ('Personal Information', {'fields': ['date_of_birth', ('gender', 'marital_status'), 'blood_group', 
 		('nationality', 'citizen'), 'national_id_or_passport'], 'classes': [ 'extrapretty']}), 
         ('Employment Information', {'fields': [('employee_number', 'supervisor'), 'date_of_hire', ('department', 'job_title'), 
-		('employee_category', 'contract_type'), 'pin_number', ('nssf_number', 'nhif_number') ], 'classes': [ 'extrapretty'] }), 
+		('employee_category', 'contract_type'), 'pin_number', ('nssf_number', 'nhif_number'), 'entitled_leaves' ], 
+		'classes': [ 'extrapretty'] }), 
 		('Contact Information', {'fields': ['cellphone_number', ('postal_address', 'postal_code'), 'town', 'road', 
 		('physical_address', 'house_number'), 'residence_area' ], 'classes': [ 'extrapretty'] } ), 
         ('Documents Collected Check-list', {'fields': [], 'classes': [ 'extrapretty', 'collapse']}),
@@ -94,7 +100,13 @@ class DepartmentAdmin (admin.ModelAdmin):
     # inlines=[ChoiceInline] 
     list_display=('name_of_department', 'manager', 'description') 
     list_filter = ['name_of_department'] 
-    search_fields = ['name_of_department'] 
+    search_fields = ['name_of_department']  
+	
+class LeaveCategoryAdmin(admin.ModelAdmin): 
+    list_display=('name', 'description', 'days_assigned', 'accumulates') 
+    list_filter = ['accumulates'] 
+    search_fields = ['name']  
+    ordering = ['name']
 	
 admin.site.unregister(User)
 admin.site.register(User, NewUserAdmin)
@@ -102,3 +114,4 @@ admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Nationality, NationalityAdmin) 
 admin.site.register(Employee, EmployeeAdmin) 
 admin.site.register(FinancialPeriod, FinancialPeriodAdmin) 
+admin.site.register(LeaveCategory, LeaveCategoryAdmin) 

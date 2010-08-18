@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User  
+from django.contrib.auth.models import User 
 import datetime 
 
 class Nationality(models.Model): 
@@ -82,7 +82,7 @@ class UserProfile(models.Model):
 # Model the department first, the Employee entity needs it 			
 class Department(models.Model): 
     name_of_department=models.CharField(max_length=30, blank=False, unique=True) 
-    manager=models.ForeignKey(User, unique=False) #, edit_inline=models.TABULAR, num_in_admin=1,min_num_in_admin=1, max_num_in_admin=1,num_extra_on_change=0) 	
+    manager=models.ForeignKey(User, unique=False, related_name='head_of_department') 
     description=models.TextField()
 	
     def __unicode__(self): 
@@ -143,21 +143,16 @@ class Employee(UserProfile):
 	help_text='National ID number (Foreign employees should provide Passport number).')
     employee_number = models.CharField(blank=False, max_length=10, unique=True) 
     date_of_hire = models.DateField(blank=False) 
-    department = models.ForeignKey(Department,blank=False) 
-    supervisor=models.ForeignKey(User, blank=True, related_name='employees_supervisor') 
+    department = models.ForeignKey(Department, blank=False) 
+    supervisor=models.ForeignKey('Employee', blank=True, null=True, related_name='employees_supervisor') 
     job_title = models.IntegerField(max_length=2, blank=False, choices=JOB_TITLE_CHOICES)
     employee_category = models.IntegerField(max_length=1, blank=False, choices=EMPLOYEE_CATEGORY_CHOICES)
-    contract_type = models.IntegerField(max_length=1, blank=False, choices=CONTRACT_TYPE_CHOICES)
+    contract_type = models.IntegerField(max_length=1, blank=False, choices=CONTRACT_TYPE_CHOICES) 
+    entitled_leaves = models.ManyToManyField('LeaveCategory')
     pin_number = models.CharField(blank=False, max_length=10, unique=True)
     nssf_number = models.CharField(blank=False, max_length=15, unique=True)
     nhif_number = models.CharField(blank=False, max_length=15, unique=True)
-	
-    # Educational Information 
 
-    # Documents checklist 
-	
-    # 
-	
     def __unicode__(self): 
         return u"%s %s"%(self.user.first_name, self.user.last_name ) 
 
@@ -272,7 +267,7 @@ class AcademicQualification(models.Model):
     institution_issued = models.CharField(blank=False, max_length=30) 
     date_of_issue =  models.DateField(blank=False)	
     type = models.IntegerField(blank=False, max_length=1, choices=QUALIFICATION_TYPES) 
-    score = models.CharField(blank=False, max_length=15)
+    score = models.CharField(blank=False, max_length=30)
     employee = models.ForeignKey(Employee, unique=False) # An employee should can have several Academic qualifications 
 	
     def __unicode__(self): 
@@ -281,7 +276,8 @@ class AcademicQualification(models.Model):
 class WorkPermit(models.Model): 
     valid_from = models.DateField(blank=False, null=False, help_text="Date from when the work permit is effective.") 
     valid_until = models.DateField(blank=False, null=False, help_text="Date until to when work permit is effective.")
-
+    employee = models.ForeignKey(Employee, unique=False)
+	
 # We define our financial periods here 		
 class FinancialPeriod(models.Model): 
     begins_from = models.DateField(blank=False, null=False, help_text="Date when the financial period starts.") 
@@ -307,4 +303,17 @@ class DocumentsChecklist(models.Model):
     certificate_of_good_conduct = models.BooleanField(blank=True, default=False) 
     transcripts = models.BooleanField(blank=True, default=False) 
     degree_certificate = models.BooleanField(blank=True, default=False) 
-    employee = models.ForeignKey(Employee, unique=True)    
+    employee = models.ForeignKey(Employee, unique=True)  
+
+# A model for the leaves in the system  
+class LeaveCategory(models.Model): 
+    name = models.CharField(blank=False, max_length=35, unique=True) 
+    days_assigned = models.IntegerField(blank=False, max_length=3, default=0) 
+    description = models.TextField(blank=False)
+    accumulates = models.BooleanField(default=False) 
+	
+    class Meta: 
+        verbose_name_plural = 'Leave Categories' 
+		
+    def __unicode__(self): 
+        return u"%s"%(self.name) 	

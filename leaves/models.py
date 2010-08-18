@@ -1,5 +1,5 @@
 from django.db import models 
-from hrms.core.models import Employee, FinancialPeriod 
+from hrms.core.models import Employee, FinancialPeriod, LeaveCategory  
 import datetime 
 
 # Create your models here.  
@@ -23,19 +23,6 @@ class Holiday(models.Model):
 	
     def __unicode__(self): 
         return u"%s"%(self.name)
-
-# A model for the leaves in the system  
-class LeaveCategory(models.Model): 
-    name = models.CharField(blank=False, max_length=25, unique=True) 
-    days_assigned = models.IntegerField(blank=False, max_length=3, default=0) 
-    description = models.TextField(blank=False)
-    accumulates = models.BooleanField(default=False) 
-	
-    class Meta: 
-        verbose_name_plural = 'Leave Categories' 
-		
-    def __unicode__(self): 
-        return u"%s"%(self.name) 
 		
 # Model for leave applications 
 class LeaveApplication(models.Model): 
