@@ -67,7 +67,7 @@ class EmployeeAdmin(admin.ModelAdmin):
         ('Personal Information', {'fields': ['date_of_birth', ('gender', 'marital_status'), 'blood_group', 
 		('nationality', 'citizen'), 'national_id_or_passport'], 'classes': [ 'extrapretty']}), 
         ('Employment Information', {'fields': [('employee_number', 'supervisor'), 'date_of_hire', ('department', 'job_title'), 
-		('employee_category', 'contract_type'), 'pin_number', ('nssf_number', 'nhif_number'), 'entitled_leaves' ], 
+		('employee_category', 'contract_type'), 'pin_number', ('nssf_number', 'nhif_number')], 
 		'classes': [ 'extrapretty'] }), 
 		('Contact Information', {'fields': ['cellphone_number', ('postal_address', 'postal_code'), 'town', 'road', 
 		('physical_address', 'house_number'), 'residence_area' ], 'classes': [ 'extrapretty'] } ), 

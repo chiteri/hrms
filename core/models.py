@@ -53,7 +53,7 @@ class UserProfile(models.Model):
     )	
 
     # Core Fields 	
-    user = models.ForeignKey(User, unique=True) #     
+    user = models.ForeignKey(User, unique=True)  
     
     # Personal Information  
     date_of_birth = models.DateField() 
@@ -148,13 +148,13 @@ class Employee(UserProfile):
     job_title = models.IntegerField(max_length=2, blank=False, choices=JOB_TITLE_CHOICES)
     employee_category = models.IntegerField(max_length=1, blank=False, choices=EMPLOYEE_CATEGORY_CHOICES)
     contract_type = models.IntegerField(max_length=1, blank=False, choices=CONTRACT_TYPE_CHOICES) 
-    entitled_leaves = models.ManyToManyField('LeaveCategory')
+    # entitled_leaves = models.ManyToManyField('LeaveCategory')
     pin_number = models.CharField(blank=False, max_length=10, unique=True)
     nssf_number = models.CharField(blank=False, max_length=15, unique=True)
     nhif_number = models.CharField(blank=False, max_length=15, unique=True)
 
     def __unicode__(self): 
-        return u"%s %s"%(self.user.first_name, self.user.last_name ) 
+        return u"%s %s"%(self.user.first_name, self.user.last_name ) 		
 
 # These are contacts for Foreign employees 		
 class HomeContact(models.Model): 
@@ -276,7 +276,10 @@ class AcademicQualification(models.Model):
 class WorkPermit(models.Model): 
     valid_from = models.DateField(blank=False, null=False, help_text="Date from when the work permit is effective.") 
     valid_until = models.DateField(blank=False, null=False, help_text="Date until to when work permit is effective.")
-    employee = models.ForeignKey(Employee, unique=False)
+    employee = models.ForeignKey(Employee, unique=False) 
+	
+    def __unicode__(self): 
+        return u"Permit valid from %s to %s"%(self.valid_from, self.valid_until)
 	
 # We define our financial periods here 		
 class FinancialPeriod(models.Model): 

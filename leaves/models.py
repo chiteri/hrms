@@ -22,7 +22,15 @@ class Holiday(models.Model):
     description = models.TextField(max_length=100, help_text="A description about the holiday / its relevance.") 
 	
     def __unicode__(self): 
-        return u"%s"%(self.name)
+        return u"%s"%(self.name) 
+		
+# The various leave eintitlements for Employees 
+class LeaveEntitlement(models.Model): 
+    employee = models.ForeignKey(Employee, blank=False, null=False) 
+    leave_type = models.ForeignKey(LeaveCategory, blank=False, null=False) 
+    balance = models.IntegerField(max_length=3, blank=False, null=False) 
+    period = models.ForeignKey(FinancialPeriod, blank=False, null=False) 
+    date_assigned = models.DateTimeField(blank=False, null=False, default=datetime.datetime.now)
 		
 # Model for leave applications 
 class LeaveApplication(models.Model): 
