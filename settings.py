@@ -82,7 +82,8 @@ ROOT_URLCONF = 'hrms.urls'
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    # Don't forget to use absolute paths, not relative paths. 
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
 )
 
 INSTALLED_APPS = (
@@ -95,6 +96,7 @@ INSTALLED_APPS = (
     'django.contrib.admin', 
     'hrms.core',  
     'hrms.leaves', 
+    'hrms.home', 
 )
 
 # Allow the system to use the Employee model in-built as the entity having profiles info 
