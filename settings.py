@@ -96,7 +96,7 @@ INSTALLED_APPS = (
     'django.contrib.admin', 
     'hrms.core',  
     'hrms.leaves', 
-    'hrms.home', 
+    'hrms.accounts', 
 )
 
 # Allow the system to use the Employee model in-built as the entity having profiles info 

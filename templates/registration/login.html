@@ -1,0 +1,31 @@
+{% extends "base.html" %} 
+
+{% block title %} Login Form {% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href=""> HOME </a> | </li> 
+		<li> <a href="/help/"> HELP </a> | </li>
+		<li> <a href="/contacts/"> CONTACT US </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<!-- <li> <a href="/login"> Login </a> </li> -->
+		<li> <a href="/register/"> Register </a> </li> 
+		<!-- <li> <a href="/leaves/approve/">Approve </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<form method="POST" action=""> {% csrf_token %} 
+	<table> 
+		<tr> <td> Username </td> <td> <input name="username" type="text"/> </td> </tr> 
+		<tr> <td> Password </td> <td> <input name="password" type="password" /></td> </tr> 
+		<tr> <td> </td> <td> <input type="submit" value="login" /> </td> </tr>
+		<tr> <td> </td> <td> <input type="hidden" name="next" value="{{ next }}" /> </td> </tr>
+	</table> 
+	</form> 
+{% endblock %}

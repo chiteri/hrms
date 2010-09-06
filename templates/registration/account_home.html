@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+
+{% block title %} Logged In | Account Settings {% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href=""> HOME </a> | </li> 
+		<li> <a href="/leaves/"> LEAVES </a> | </li>
+		<li> <a href="/payroll/"> PAYROLL </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li> <a href="/logout/"> Logout </a> </li> 
+		<!-- <li> <a href="/register/"> Register </a> </li> 
+		<li> <a href="/leaves/approve/">Approve </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<h3> You have been successfuly logged into the system. </h3> 
+	{% if user.is_authenticated %}
+		<p> Welcome, {{ user.first_name}}, {{ user.last_name}}. Thanks for logging in.</p> 
+		<p>  </p> 
+	{% endif %} 
+{% endblock %}

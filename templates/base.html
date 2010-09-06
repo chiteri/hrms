@@ -37,6 +37,10 @@
 		
 		<div id="content"> 
 			{% block content %}
+			{% if form.errors %}
+				<p>Your username and password didn't match. Please try again.</p>
+			{% endif %}
+
 			<table> <tr> <td> Hello, My name </td> <td> is Martin Chiteri. </td> <td> I live in Roysambu, somewhere along Thika Road </td> </tr> 
 					<tr> <td> Hello, My name </td> <td> is Martin Chiteri. </td> <td> I live in Roysambu, somewhere along Thika Road </td></tr> 
 			</table> 

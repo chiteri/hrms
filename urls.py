@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', 
     { 'document_root': os.path.join(os.path.dirname(__file__), 'media').replace('\\','/') }), 
 
-    (r'^', include('hrms.home.urls')),
+    (r'^', include('hrms.accounts.urls')), 
+    (r'^accounts/', include('hrms.accounts.urls')),
 	
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)), 

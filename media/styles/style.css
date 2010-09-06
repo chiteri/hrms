@@ -1,7 +1,7 @@
 body
 {
     color: #000000; 
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 	font-family: "trebuchet ms", tahoma, verdana, helvetica, arial; 
 	font-size: 14px;
 	text-align: center; 
@@ -72,8 +72,8 @@ div {
 #content
 {
 	display:inline;
-	border: 3px solid blue; 
-	/* width: automatic; */
+	/*  border: 3px solid blue; 
+	width: automatic; */
 }
 
 #footer 
@@ -81,4 +81,14 @@ div {
 	display: inline; 
 	width: 80%;
 	border: 2px solid #f00;
+}
+
+/* More specific styles after the basic layout */ 
+.errorlist li {
+	background-color: red;
+	color: white;
+	display: block;
+	font-size: 10px;
+	margin: 0 0 3px;
+	padding: 4px 5px;
 }

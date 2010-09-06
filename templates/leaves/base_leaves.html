@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+
+{% block title %} Home Page {% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href="/account/"> ACCOUNT </a> | </li> 
+		<li> <a href="/leaves/"> LEAVES </a> | </li>
+		<li> <a href="/payroll/"> PAYROLL </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li> <a href="/login"> Login </a> </li> 
+		<li> <a href="/register"> Register </a> </li> 
+		<!-- <li> <a href="/leaves/approve/">Approve </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<table> 
+		<tr> <td> Hello, My name </td> </tr> 
+		<tr> <td> is Martin Chiteri. </td> </tr> 
+	</table> 
+{% endblock %}
