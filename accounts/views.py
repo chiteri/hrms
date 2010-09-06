@@ -1,11 +1,11 @@
 from django.shortcuts import render_to_response 
-from django.contrib.auth.decorators import login_required
-# from company_site.news.models import NewsSummary 
-# from company_site.polls.models import Poll
+from django.contrib.auth.decorators import login_required 
+from django.http import HttpResponseRedirect
 
 def home(request): 
-    # news = NewsSummary.objects.all() 
-    # poll = Poll.active.all()[0]
+    if request.user.is_authenticated(): 
+        return HttpResponseRedirect('/accounts/profile/') 
+		
     return render_to_response ('base.html') 
 
 @login_required # Decorator to denote that only authenticated / authorised users can access this view  
