@@ -1,0 +1,32 @@
+{% extends "base.html" %} 
+
+{% block title %} Leaves {% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href="/accounts/"> ACCOUNT </a> | </li> 
+		<li class="current"> <a href="/leaves/"> LEAVES </a> | </li>
+		<li> <a href="/payroll/"> PAYROLL </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li> <a href="/archive/"> List </a> </li> 
+		<li> <a href="/apply/"> Apply </a> </li> 
+		<!-- <li> <a href="/logout/"> Logout </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
+{% endblock %}
+
+{% block content %}
+{% if periods %}  
+	<table> 
+	<th> <td> <h4> Select a period within which to view leaves applied. </h4> </td> </th> 
+	{% for period in periods %} 
+		<tr> <td> {{ period.id }}) </td> <td> <a href="/leaves/period/{{ period.id}}/"> {{ period }} </a> </td>  </tr> 
+	{% endfor %} 
+	<tr> <td> </td> <td> </td>  </tr> 
+	</table> 
+{% endif %} 
+{% endblock %}

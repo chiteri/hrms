@@ -288,7 +288,7 @@ class FinancialPeriod(models.Model):
     description = models.TextField(blank=False, null=False, help_text="A short description of the period.") 
 
     def __unicode__(self): 
-        return u"%s [%s - %s]"%(self.description, self.begins_from, self.ends_at)
+        return u"%s [%s to %s]"%(self.description, self.begins_from, self.ends_at)
 	
 class DocumentsChecklist(models.Model): 
     work_permit = models.BooleanField(blank=True, default=False) 

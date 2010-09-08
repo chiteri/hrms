@@ -29,13 +29,20 @@
 		   <ul> 
 		       <li> <a href="/login/"> Login </a> </li> 
 			   <li> <a href="/register/"> Register </a> </li> 
-			   <!-- <li> <a href="/leaves/approve/">Approve </a> </li> 
-			   <li> <a href="/leaves/summary/">Summary </a></li> --> 
+			   <li> <a href="/admin/"> Admin Site </a> </li> 
+			   <!-- <li> <a href="/leaves/summary/">Summary </a></li> --> 
 		   </ul>
 			{% endblock %}
 		</div> 
 		
 		<div id="content"> 
+			{% if user.is_authenticated %}
+				<p> Welcome, {{ user.first_name}}, {{ user.last_name}}. 
+				[ <a href="/logout/"> Logout </a> ] <br /> 
+				+++++++++++++++++++++++++++++++++++ </p> 
+				
+			{% endif %} 
+			
 			{% block content %}
 			{% if form.errors %}
 				<p>Your username and password didn't match. Please try again.</p>

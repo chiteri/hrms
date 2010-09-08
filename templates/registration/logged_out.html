@@ -4,7 +4,7 @@
 
 {% block primary_nav %}  
 	<ul> 
-		<li> <a href=""> HOME </a> | </li> 
+		<li> <a href="/"> HOME </a> | </li> 
 		<li> <a href="/help/"> HELP </a> | </li>
 		<li> <a href="/contacts/"> CONTACT US </a> </li>
 	</ul> 
@@ -14,13 +14,11 @@
 	<ul> 
 		<li> <a href="/login/"> Login </a> </li> 
 		<li> <a href="/register/"> Register </a> </li> 
-		<!-- <li> <a href="/leaves/approve/">Approve </a> </li> 
-		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+		<li> <a href="/admin/"> Admin Site </a> </li> 
+		<!--  <li> <a href="/leaves/summary/">Summary </a></li> --> 
 	</ul>
 {% endblock %}
 
 {% block content %}
 	<h3> You have been successfuly logged out of the system. </h3> 
-	Visit the <a href="/admin/"> admin login </a> <br /> 
-	Or Go to the sites <a href="/"> Home page </a> 
 {% endblock %}

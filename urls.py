@@ -16,7 +16,8 @@ urlpatterns = patterns('',
     { 'document_root': os.path.join(os.path.dirname(__file__), 'media').replace('\\','/') }), 
 
     (r'^', include('hrms.accounts.urls')), 
-    (r'^accounts/', include('hrms.accounts.urls')),
+    (r'^accounts/', include('hrms.accounts.urls')), 
+    (r'^leaves/', include('hrms.leaves.urls')),
 	
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)), 
