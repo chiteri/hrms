@@ -1,0 +1,42 @@
+{% extends "base.html" %} 
+
+{% block title %} Leave application {{ object.id }} {% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href="/accounts/"> ACCOUNT </a> | </li> 
+		<li class="current"> <a href="/leaves/"> LEAVES </a> | </li>
+		<li> <a href="/payroll/"> PAYROLL </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li> <a href="/archive/"> List </a> </li> 
+		<li class="current"> <a href="/archive/"> Details </a> </li> 
+		<li> <a href="/apply/"> Apply </a> </li> 
+		<!-- <li> <a href="/logout/"> Logout </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
+{% endblock %}
+
+{% block content %}
+
+{% if object %} 
+    <!-- <h1>{{ object.title|upper }}</h1> --> 
+<table> 
+	<tr> <td> <strong> Item. </strong> </td> <td> <strong> Detail </strong> </td> 
+	<tr> <td>  Application ID. </td> <td> {{ object.id }} </a> </td> </tr>
+	<tr> <td> Application date </td> <td> {{ object.application_date|date:"jS M, Y"}} </a> </td> </tr> 
+	<tr> <td> Leave Start date </td>  <td> {{ object.start_date|date:"jS M, Y" }} </td> </tr>
+	<tr> <td> Days requested </td>  <td> {{ object.days_requested}} </td> </tr>
+	<tr> <td> Description </td> <td> {{ object.description}} </td> </tr> 
+	<tr> <td> Application Status </td> <td> {{ object.status}} </td> </tr> 
+	<tr> <td> Approved By </td> <td> {{ object.approved_by }} </td> </tr> 
+	<tr> <td> Approval Date </td> <td> </td> {{ object.approved_date|date:"jS M, Y" }}  </tr> 
+</table> 
+   
+{% else %}
+    <p> Could not find the leave application </p>
+{% endif %} 
+{% endblock %}

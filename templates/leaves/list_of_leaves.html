@@ -1,0 +1,38 @@
+{% extends "base.html" %} 
+
+{% block title %} Leave applications || Period: {{ period}} {% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href="/accounts/"> ACCOUNT </a> | </li> 
+		<li class="current"> <a href="/leaves/"> LEAVES </a> | </li>
+		<li> <a href="/payroll/"> PAYROLL </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li class="current"> <a href="/archive/"> List </a> </li> 
+		<li> <a href="/apply/"> Apply </a> </li> 
+		<!-- <li> <a href="/logout/"> Logout </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
+{% endblock %}
+
+{% block content %}
+{% if leave_applications %}   
+	<table> <h4> Leave applications for period {{ period }} </h4>
+	<tr> <td> <strong> App. ID. </strong> </td> <td> <strong> Application date </strong> </td> 
+	<td> <strong> Start Date </strong> </td> <td> <strong> Days </strong> </td> 
+	<td> <strong> Remarks </strong> </td> <td> <strong> Status </strong> </td> </tr> 
+	{% for application in leave_applications %} 
+		<tr> <td> {{ application.id }}) </td> 
+		<td> <a href="/leaves/{{application.id}}/details/" > {{ application.application_date|date:"jS M, Y"}} </a> </td> 
+		<td> {{ application.start_date|date:"jS M, Y" }} </td>  <td> {{ application.days_requested}} </td> 
+		<td> {{ application.description}} </td> <td> {{ application.status}} </td> </tr> 
+	{% endfor %} 
+	</table> 
+{% else %} 
+    <h4> There are no leave applications made in this period. </h4> 
+{% endif %} 
+{% endblock %}
