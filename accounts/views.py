@@ -6,9 +6,9 @@ def home(request):
     if request.user.is_authenticated(): 
         return HttpResponseRedirect('/accounts/profile/') 
 		
-    return render_to_response ('base.html') 
+    return render_to_response ('base.html', {'user':request.user } ) 
 
 @login_required # Decorator to denote that only authenticated / authorised users can access this view  
 def profile(request):
     # employee = UserProfile.objects.get(user=request.user)
-    return render_to_response('registration/account_home.html', {'user':request.user }) 
+    return render_to_response('registration/account_home.html', {'user':request.user } ) 

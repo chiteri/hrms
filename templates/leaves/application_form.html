@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+
+{% block title %} Leave applications || Period: {{ period}} {% endblock %} 
+
+{% block links %} 
+	<link rel="stylesheet" type="text/css" media="all" href="/site_media/scripts/js/jquery-ui.custom/development-bundle/themes/base/jquery.ui.all.css" />
+	<script language="JavaScript" src="/site_media/scripts/js/jquery-ui.custom/development-bundle/jquery-1.4.2.js"> </script>
+	<script language="javaScript" src="/site_media/scripts/js/jquery-ui.custom/js/jquery-ui-1.8.4.custom.min.js"> </script>
+	<script type="text/javascript">
+		$(function() {
+			$("#id_start_date").datepicker();
+			$("#id_end_date").datepicker();	
+		});
+	</script>
+
+{% endblock %}
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href="/accounts/"> ACCOUNT </a> | </li> 
+		<li class="current"> <a href="/leaves/"> LEAVES </a> | </li>
+		<li> <a href="/payroll/"> PAYROLL </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li > <a href="/leaves/"> List </a> </li> 
+		<li class="current">  Apply </li> 
+		<!-- <li> <a href="/logout/"> Logout </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
+{% endblock %}
+
+{% block content %}
+{% if form %}   
+<form method="post" action=""> 
+	<table> 
+	{{ form.as_table }} 
+	<tr> <td> </td> <td> <input type="submit" value="Apply" /> </td> </tr>
+	</table> 
+</form> 
+{% else %} 
+    <h4> Unable to create leave application form </h4> 
+{% endif %} 
+{% endblock %}

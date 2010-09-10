@@ -2,8 +2,9 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required 
 from hrms.core.models import FinancialPeriod 
 from hrms.leaves.models import LeaveApplication 
-# Create your views here.
+from hrms.leaves.forms import LeaveApplicationForm
 
+# Create your views here.
 @login_required # Decorator to denote that only authenticated / authorised users can access this view  
 def leaves_home(request):
     # employee = UserProfile.objects.get(user=request.user)
@@ -18,4 +19,8 @@ def leaves_in_period(request, period_id):
     return render_to_response('leaves/list_of_leaves.html', 
 	{'period':period, 'leave_applications':applications, 'user':request.user })     
 
+@login_required 	
+def apply(request): 
+    form = LeaveApplicationForm() 
+    return render_to_response('leaves/application_form.html', {'form':form} )
     
