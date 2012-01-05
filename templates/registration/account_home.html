@@ -2,11 +2,15 @@
 
 {% block title %} Logged In | Account Settings {% endblock %}
 
+{% block content %}
+	<p> You have been successfuly logged into the system. </p>  
+{% endblock %}
+
 {% block primary_nav %}  
 	<ul> 
-		<li class="current"> <a href="/" > ACCOUNT </a> | </li> 
-		<li> <a href="/leaves/"> LEAVES </a> | </li>
-		<li> <a href="/payroll/"> PAYROLL </a> </li>
+		<li class="current"> <a href="/" > My Account </a> </li> 
+		<li> <a href="/leaves/"> Leaves </a> </li>
+		<li> <a href="/payroll/"> Payroll </a> </li>
 	</ul> 
 {% endblock %}
 
@@ -20,6 +24,3 @@
 	</ul>
 {% endblock %}
 
-{% block content %}
-	<h3> You have been successfuly logged into the system. </h3>  
-{% endblock %}

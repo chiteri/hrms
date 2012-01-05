@@ -2,23 +2,6 @@
 
 {% block title %} Leave applications || Period: {{ period}} {% endblock %}
 
-{% block primary_nav %}  
-	<ul> 
-		<li> <a href="/accounts/"> ACCOUNT </a> | </li> 
-		<li class="current"> <a href="/leaves/"> LEAVES </a> | </li>
-		<li> <a href="/payroll/"> PAYROLL </a> </li>
-	</ul> 
-{% endblock %}
-
-{% block side_bar %}
-	<ul> 
-		<li class="current"> <a href="/leaves/"> List </a> </li> 
-		<li> <a href="/leaves/apply/"> Apply </a> </li> 
-		<!-- <li> <a href="/logout/"> Logout </a> </li> 
-		<li> <a href="/leaves/summary/">Summary </a></li> --> 
-	</ul>
-{% endblock %}
-
 {% block content %}
 {% if leave_applications %}   
 	<table> <h4> Leave applications for period {{ period }} </h4>
@@ -35,4 +18,26 @@
 {% else %} 
     <h4> There are no leave applications made in this period. </h4> 
 {% endif %} 
+{% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href="/accounts/"> Account </a> </li> 
+		<li class="current"> <a href="/leaves/"> Leaves </a> </li>
+			<ol> 
+				<li> <a href="/leaves/"> Summary </a> </li> 
+				<li class="current"> <a href="/leaves/details/"> Details </a> </li> 
+				<li> <a href="/leaves/apply/"> Apply </a> </li> 
+			</ol>
+		<li> <a href="/payroll/"> Payroll </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li class="current"> <a href="/leaves/"> List </a> </li> 
+		<li> <a href="/leaves/apply/"> Apply </a> </li> 
+		<!-- <li> <a href="/logout/"> Logout </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
 {% endblock %}

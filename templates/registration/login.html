@@ -2,30 +2,50 @@
 
 {% block title %} Login Form {% endblock %}
 
-{% block primary_nav %}  
-	<ul> 
-		<li> <a href="/"> HOME </a> | </li> 
-		<li> <a href="/help/"> HELP </a> | </li>
-		<li> <a href="/contacts/"> CONTACT US </a> </li>
-	</ul> 
-{% endblock %}
-
-{% block side_bar %}
-	<ul> 
-		<!-- <li> <a href="/login"> Login </a> </li> -->
-		<li> <a href="/register/"> Register </a> </li> 
-		<!-- <li> <a href="/leaves/approve/">Approve </a> </li> 
-		<li> <a href="/leaves/summary/">Summary </a></li> --> 
-	</ul>
-{% endblock %}
-
 {% block content %}
-	<form method="POST" action=""> {% csrf_token %} 
-	<table> 
-		<tr> <td> Username </td> <td> <input name="username" type="text"/> </td> </tr> 
-		<tr> <td> Password </td> <td> <input name="password" type="password" /></td> </tr> 
-		<tr> <td> </td> <td> <input type="submit" value="login" /> </td> </tr>
-		<tr> <td> </td> <td> <input type="hidden" name="next" value="{{ next }}" /> </td> </tr>
-	</table> 
-	</form> 
+	<table class="plain" cellpadding="15">
+		<tr>
+			<td>
+			<table class="loginform">
+				<tr>
+					<td><img src="/site_media/images/nuvola/22x22/actions/encrypted.png"></td>
+					<td class="colhead">Login to your account</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">Please login using your email address and password</td>
+				</tr>
+				<tr>
+					<form method=post name="s_login" action="">{% csrf_token %} 
+					<td>Email Address:</td>
+					<td><input type="text" name="username" value="" maxlength="50" size="30" tabindex="1"></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" name="password" maxlength="50" size="15" tabindex="2"></td>
+				</tr>
+				<tr>
+					<td>Remember:</td>
+					<td><input type="checkbox" name="remember_me" value="y" checked></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"> <input type="submit" value="Login" tabindex="3"> </td>
+					</form>
+				</tr>
+				
+				<tr>
+					<td colspan="2"><img src="/site_media/images/nuvola/22x22/apps/kuser.png"><a href="/signup/">Signup for a new account</a></td>
+				</tr>
+				
+				<tr>
+					<td colspan="2"><img src="/site_media/images/nuvola/22x22/apps/kuser.png"><a href="/password/recover/">Recover your passwod</a></td>
+				</tr>
+				
+			</table>
+			</td>
+			<td valign="center" width="128"><img src="/site_media/images/nuvola/128x128/actions/lock.png"></td> 
+        </tr>
+	</table>
+<script language='JavaScript'>
+	document.s_login.email_address.focus();
+</script>
 {% endblock %}

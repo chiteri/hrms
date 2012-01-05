@@ -1,5 +1,4 @@
 import os 
-
 # Django settings for hrms project.
 
 DEBUG = True

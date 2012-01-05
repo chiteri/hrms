@@ -2,11 +2,18 @@
 
 {% block title %} Home Page {% endblock %}
 
+{% block content %}
+	<table> 
+		<tr> <td> Hello, My name </td> </tr> 
+		<tr> <td> is Martin Chiteri. </td> </tr> 
+	</table> 
+{% endblock %}
+
 {% block primary_nav %}  
 	<ul> 
-		<li> <a href=""> HOME </a> | </li> 
-		<li> <a href="/leaves/"> LEAVES </a> | </li>
-		<li> <a href="/payroll/"> PAYROLL </a> </li>
+		<li> <a href=""> Home </a> </li> 
+		<li> <a href="/leaves/"> Leaves </a> </li>
+		<li> <a href="/payroll/"> Payroll </a> </li>
 	</ul> 
 {% endblock %}
 
@@ -17,11 +24,4 @@
 		<!-- <li> <a href="/leaves/approve/">Approve </a> </li> 
 		<li> <a href="/leaves/summary/">Summary </a></li> --> 
 	</ul>
-{% endblock %}
-
-{% block content %}
-	<table> 
-		<tr> <td> Hello, My name </td> </tr> 
-		<tr> <td> is Martin Chiteri. </td> </tr> 
-	</table> 
 {% endblock %}

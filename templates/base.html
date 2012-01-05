@@ -3,63 +3,77 @@
 <head> 
     <title>  H.R.M.S :: {% block title %} Home Page {% endblock %} </title> 
 	<!-- Framework CSS -->
-	<link rel="stylesheet" href="../../blueprint/screen.css" type="text/css" media="screen, projection" />
-	<link rel="stylesheet" href="../../blueprint/print.css" type="text/css" media="print" />
-    <!--[if lt IE 8]><link rel="stylesheet" href="../../blueprint/ie.css" type="text/css" media="screen, projection"><![endif]]-->
+	<link rel="stylesheet" href="/site_media/styles/blueprint/screen.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="/site_media/styles/blueprint/print.css" type="text/css" media="print" />
+    <!--[if lt IE 8]><link rel="stylesheet" href="/site_media/styles/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]]-->
 	<link rel="stylesheet" type="text/css" href="/site_media/styles/style.css" /> 
 	{% block links %} {% endblock %}
 </head> 
 <body> 
-<div id="container"> 
-    <div id="header"> 
-	    <h3> Human Resources Management System </h3>
-		<div id="primary-navigation"> 
-			{% block primary_nav %}
-			<ul> 
-				<li> <a href="/"> HOME </a> | </li> 
-				<li> <a href="/help/"> HELP </a> | </li>
-				<li> <a href="/contacts/"> CONTACT US </a> </li>
-			</ul> 
-			{% endblock %}
-		</div> 
-	</div> 
+<table align="center" width="780" cellpadding="0" cellspacing="0" border="0" class="plain"> 
+    <tr> 
+	    <td width="20" bgcolor="#3399CC"><img src="/site_media/images/curves/top_left.gif" width="20" height="42"></td>
+		<td width="740" bgcolor="#66CC33"><a href="/"> Human Resources Management System </a></td>
+		<td width="20" bgcolor="#3399CC"><img src="/site_media/images/curves/top_right.gif" width="20" height="42"></td>
+	</tr>
+	<tr>
+		<td bgcolor="#99CCFF" colspan="3"> 
+		{% if user.is_authenticated %}
+		<table class='plain' width='100%'>
+			<tr> 
+				<td><a href="/">Home</a> | </td> 
+				<td align="right">Welcome {{ user.first_name}}, {{ user.last_name}} [ <a href="/logout/"> Logout </a> ] </td>
+				{% if user.is_staff %}
+				<td align="right"> | Visit the [ <a href="/admin/"> Admin Panel </a> ] </td>
+				{% endif %}
+			</tr> 
+		</table>
+		{% else %} 
+		<table class="plain" cellspacing="0" cellpadding="2">
+			<tr bgcolor="#99CCFF">
+				<td><a href="/">Home</a></td>
+				<td> | </td>
+				<td><a href='/password/recover/'>Recover your password</a></td>
+			</tr>
+		</table>
+		{% endif %} 
+		</td>
+	</tr>			
 	
-    <div id="main"> 
-	    <div id="side-bar"> 
-			{% block side_bar %}
-		   <ul> 
-		       <li> <a href="/login/"> Login </a> </li> 
-			   <li> <a href="/register/"> Register </a> </li> 
-			   <li> <a href="/admin/"> Admin Site </a> </li> 
-			   <!-- <li> <a href="/leaves/summary/">Summary </a></li> --> 
-		   </ul>
-			{% endblock %}
-		</div> 
-		
-		<div id="content"> 
-			{% if user.is_authenticated %}
-				<p> Welcome, {{ user.first_name}}, {{ user.last_name}}. 
-				[ <a href="/logout/"> Logout </a> ] <br /> 
-				+++++++++++++++++++++++++++++++++++ </p> 
-				
-			{% endif %} 
-			
-			{% block content %}
-			{% if form.errors %}
-				<p>Your username and password didn't match. Please try again.</p>
-			{% endif %}
-
-			<table> <tr> <td> Hello, My name </td> <td> is Martin Chiteri. </td> <td> I live in Roysambu, somewhere along Thika Road </td> </tr> 
-					<tr> <td> Hello, My name </td> <td> is Antony Gatura. </td> <td> I live in Zimermann, somewhere along Thika Road </td></tr> 
-			</table> 
-			{% endblock %}
-		</div> 
-		
-	</div>	
+	{% if form.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+	{% endif %}
+	<tr>
+		<td colspan="3">
+			<table cellspacing="0">
+				<tr> 				
+					<td width="630" valign="top"> 
+					{% block content %}	
+						<p> Am testing the UI of the HRMS right now! </p> 
+					{% endblock %}
+					</td>
+					
+					<td width="150">  
+					{% block primary_nav %}
+					<ul> 
+						<li> <a href="/login/"> Login </a> </li>
+						<li> <a href="/admin/"> Admin Panel </a>  </li> 
+						<li> <a href="/help/"> Assistance? </a> </li>
+						<li> <a href="/contacts/"> Contact Us </a> </li>
+					</ul> 
+					{% endblock %}
+					</td> 
+					
+				</tr>
+			</table>
+		</td>
+	</tr>
 	
-	<div id="Footer"> 
-		<p> This site is under heavy development. </p> 
-	</div> 
-</div> 
+	<tr>
+		<td width="20" bgcolor='#3399CC'><img src="/site_media/images/curves/white_bottom_left.gif" width="20" height="20"></td>
+		<td width="780" bgcolor="#ffffff" align="center"> HRMS 2012, All Rights Reserved. </td>
+		<td width="20" bgcolor="#3399CC"><img src="/site_media/images/curves/white_bottom_right.gif" width="20" height="20"></td>
+	</tr>
+</table>	
 </body> 
 </html>

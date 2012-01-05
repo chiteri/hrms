@@ -2,24 +2,6 @@
 
 {% block title %} Leave application {{ object.id }} {% endblock %}
 
-{% block primary_nav %}  
-	<ul> 
-		<li> <a href="/accounts/"> ACCOUNT </a> | </li> 
-		<li class="current"> <a href="/leaves/"> LEAVES </a> | </li>
-		<li> <a href="/payroll/"> PAYROLL </a> </li>
-	</ul> 
-{% endblock %}
-
-{% block side_bar %}
-	<ul> 
-		<li> <a href="/leaves/"> List </a> </li> 
-		<li class="current"> <a href=""> Details </a> </li> 
-		<li> <a href="/leaves/apply/"> Apply </a> </li> 
-		<!-- <li> <a href="/logout/"> Logout </a> </li> 
-		<li> <a href="/leaves/summary/">Summary </a></li> --> 
-	</ul>
-{% endblock %}
-
 {% block content %}
 
 {% if object %} 
@@ -39,4 +21,29 @@
 {% else %}
     <p> Could not find the leave application </p>
 {% endif %} 
+{% endblock %}
+
+{% block primary_nav %}  
+	<ul> 
+		<li> <a href="/accounts/"> Account </a> </li> 
+		<li class="current"> <a href="/leaves/"> Leaves </a> </li> 
+			<ol> 
+				<li> <a href="/leaves/"> Summary </a> </li> 
+				<li class="current"> <a href="/leaves/details/"> Details </a> </li> 
+				<li> <a href="/leaves/apply/"> Apply </a> </li> 
+				<!-- <li> <a href="/logout/"> Logout </a> </li> 
+				<li> <a href="/leaves/summary/">Summary </a></li> --> 
+			</ol>
+		<li> <a href="/payroll/"> Payroll </a> </li>
+	</ul> 
+{% endblock %}
+
+{% block side_bar %}
+	<ul> 
+		<li> <a href="/leaves/"> List </a> </li> 
+		<li class="current"> <a href=""> Details </a> </li> 
+		<li> <a href="/leaves/apply/"> Apply </a> </li> 
+		<!-- <li> <a href="/logout/"> Logout </a> </li> 
+		<li> <a href="/leaves/summary/">Summary </a></li> --> 
+	</ul>
 {% endblock %}

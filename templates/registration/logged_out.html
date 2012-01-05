@@ -1,12 +1,16 @@
 {% extends "base.html" %} 
 
-{% block title %} Sucessfully logged out {% endblock %}
+{% block title %} Log-out Sucessfull {% endblock %}
+
+{% block content %}
+	<p> You have been successfuly logged out of the system. </p> 
+{% endblock %}
 
 {% block primary_nav %}  
 	<ul> 
-		<li> <a href="/"> HOME </a> | </li> 
-		<li> <a href="/help/"> HELP </a> | </li>
-		<li> <a href="/contacts/"> CONTACT US </a> </li>
+		<li> <a href="/"> Home </a> </li> 
+		<li> <a href="/help/"> Assistance? </a> </li>
+		<li> <a href="/contacts/"> Contact Us </a> </li>
 	</ul> 
 {% endblock %}
 
@@ -17,8 +21,4 @@
 		<li> <a href="/admin/"> Admin Site </a> </li> 
 		<!--  <li> <a href="/leaves/summary/">Summary </a></li> --> 
 	</ul>
-{% endblock %}
-
-{% block content %}
-	<h3> You have been successfuly logged out of the system. </h3> 
 {% endblock %}
