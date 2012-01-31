@@ -3,18 +3,21 @@
 <head> 
     <title>  H.R.M.S :: {% block title %} Home Page {% endblock %} </title> 
 	<!-- Framework CSS -->
-	<link rel="stylesheet" href="/site_media/styles/blueprint/screen.css" type="text/css" media="screen, projection" />
-	<link rel="stylesheet" href="/site_media/styles/blueprint/print.css" type="text/css" media="print" />
-    <!--[if lt IE 8]><link rel="stylesheet" href="/site_media/styles/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]]-->
-	<link rel="stylesheet" type="text/css" href="/site_media/styles/style.css" /> 
+	<link rel="stylesheet/less" href="/static/styles/bootstrap.less">
+	<script src="/static/styles/less.js"></script>
+	
+	<!-- <link rel="stylesheet" href="/static/styles/blueprint/screen.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="/static/styles/blueprint/print.css" type="text/css" media="print" /> -->
+    <!--[if lt IE 8]><link rel="stylesheet" href="/static/styles/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]]-->
+	<link rel="stylesheet" type="text/css" href="/static/styles/style.css" /> 
 	{% block links %} {% endblock %}
 </head> 
 <body> 
 <table align="center" width="780" cellpadding="0" cellspacing="0" border="0" class="plain"> 
     <tr> 
-	    <td width="20" bgcolor="#3399CC"><img src="/site_media/images/curves/top_left.gif" width="20" height="42"></td>
+	    <td width="20" bgcolor="#3399CC"><img src="/static/images/curves/top_left.gif" width="20" height="42"></td>
 		<td width="740" bgcolor="#66CC33"><a href="/"> Human Resources Management System </a></td>
-		<td width="20" bgcolor="#3399CC"><img src="/site_media/images/curves/top_right.gif" width="20" height="42"></td>
+		<td width="20" bgcolor="#3399CC"><img src="/static/images/curves/top_right.gif" width="20" height="42"></td>
 	</tr>
 	<tr>
 		<td bgcolor="#99CCFF" colspan="3"> 
@@ -24,7 +27,7 @@
 				<td><a href="/">Home</a> | </td> 
 				<td align="right">Welcome {{ user.first_name}}, {{ user.last_name}} [ <a href="/logout/"> Logout </a> ] </td>
 				{% if user.is_staff %}
-				<td align="right"> | Visit the [ <a href="/admin/"> Admin Panel </a> ] </td>
+				<td align="right"> | Visit the <a href="/admin/"> Admin Panel </a> </td>
 				{% endif %}
 			</tr> 
 		</table>
@@ -70,9 +73,9 @@
 	</tr>
 	
 	<tr>
-		<td width="20" bgcolor='#3399CC'><img src="/site_media/images/curves/white_bottom_left.gif" width="20" height="20"></td>
+		<td width="20" bgcolor='#3399CC'><img src="/static/images/curves/white_bottom_left.gif" width="20" height="20"></td>
 		<td width="780" bgcolor="#ffffff" align="center"> HRMS 2012, All Rights Reserved. </td>
-		<td width="20" bgcolor="#3399CC"><img src="/site_media/images/curves/white_bottom_right.gif" width="20" height="20"></td>
+		<td width="20" bgcolor="#3399CC"><img src="/static/images/curves/white_bottom_right.gif" width="20" height="20"></td>
 	</tr>
 </table>	
 </body> 
