@@ -14,9 +14,9 @@
 
     <!-- Le styles -->
     <!-- Framework CSS -->
-	<link rel="stylesheet" href="/static/styles/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/bootstrap/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/static/styles/style.css" /> 
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">  
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="images/favicon.ico">
@@ -47,12 +47,12 @@
             </ul>
             <p class="navbar-text pull-right"> 
 			{% if user.is_authenticated %}
-				Logged in as {{ user.first_name}}, {{ user.last_name}} [ <a href="/logout/"> Logout </a> ]
+				<span class="alert-message block"> Logged in as {{ user.first_name}}, {{ user.last_name}} [ <a href="/logout/"> Logout </a> ] </span>
 				{% if user.is_staff %}
-					| Visit the <a href="/admin/"> Admin Panel </a> 
+					&nbsp; | <span class="alert-message info"> Visit the <a href="/admin/"> Admin Panel </a> </div>
 				{% endif %}
 			{% else %} 
-				<a href="/password/recover/">Recover your password</a>
+				<span class="alert-message block"> <a href="/password/recover/">Recover your password</a> </span>
 			{% endif %}
 			</p>
           </div><!--/.nav-collapse -->
@@ -66,22 +66,25 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
 			{% block primary_nav %}
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/login/">Login</a></li>
+              <li class="nav-header">Menu</li>
+              <!-- <li class="active"><a href="/">Home</a></li> --> 
+              <li class="active"><a href="/login/">Login</a></li>
               <li><a href="/help/">Help</a></li>
               <li><a href="/admin/">Admin</a></li>
-              <!-- <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+			{% endblock %}
+			
+            <li class="nav-header">Sec Nav</li>
+			{% block side_bar %}
+              <li><a href="/">Link</a></li>
+              <!-- <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li> --> 
+              <li><a href="#">Link</a></li> -->
+              <li><a href="/">Link</a></li>
+              <li><a href="/">Link</a></li> 
 			{% endblock %}
             </ul>
           </div><!--/.well -->
@@ -143,9 +146,9 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../assets/js/tests/vendor/jquery.js"></script>
+    <!-- <script src="../assets/js/tests/vendor/jquery.js"></script>
     <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script> ->
 
   </body>
 </html>

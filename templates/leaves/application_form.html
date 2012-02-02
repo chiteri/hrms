@@ -18,10 +18,11 @@
 {% block content %}
 {% if form %}   
 {% if form.errors %}
-        <p style="color:red;">
+        <span class="alert-message error">
             Please correct the error {{ form.errors|pluralize}} below.
         </p>
 {% endif %}
+<div class="alert-message info"> LEAVE APPLICATION FORM </div>
 <form method="post" action=""> 
 {% csrf_token %}
 	<table> 
@@ -30,7 +31,7 @@
 	</table> 
 </form> 
 {% else %} 
-    <p> Unable to create leave application form </p> 
+    <span class="alert-message error"> Unable to create leave application form </span> 
 {% endif %} 
 {% endblock %}
 

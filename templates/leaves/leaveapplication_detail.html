@@ -7,7 +7,8 @@
 {% if object %} 
     <!-- <h1>{{ object.title|upper }}</h1> --> 
 <table> 
-	<tr> <td> <strong> Item. </strong> </td> <td> <strong> Detail </strong> </td> 
+	<tr> <td> <strong> <span class="alert-message block"> ITEM. </span> </strong> </td> <td> <strong> 
+	<span class="alert-message block"> DETAIL </span> </strong> </td> 
 	<tr> <td>  Application ID. </td> <td> {{ object.id }} </a> </td> </tr>
 	<tr> <td> Application date </td> <td> {{ object.application_date|date:"jS M, Y"}} </a> </td> </tr> 
 	<tr> <td> Leave Start date </td>  <td> {{ object.start_date|date:"jS M, Y" }} </td> </tr>
@@ -15,11 +16,11 @@
 	<tr> <td> Description </td> <td> {{ object.description}} </td> </tr> 
 	<tr> <td> Application Status </td> <td> {{ object.status}} </td> </tr> 
 	<tr> <td> Approved By </td> <td> {{ object.approved_by }} </td> </tr> 
-	<tr> <td> Approval Date </td> <td> </td> {{ object.approved_date|date:"jS M, Y" }}  </tr> 
+	<tr> <td> Approval Date </td> <td> </td> {{ object.approval_date|date:"jS M, Y" }}  </tr> 
 </table> 
    
 {% else %}
-    <p> Could not find the leave application </p>
+    <p> <span class="alert-message error">COULD NOT FIND THE LEAVE APPLICATION </span> </p>
 {% endif %} 
 {% endblock %}
 

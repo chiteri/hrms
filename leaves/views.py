@@ -1,9 +1,11 @@
-from django.core.context_processors import csrf
+from django.core.context_processors import csrf 
+from django.template import RequestContext
 from django.shortcuts import render_to_response 
 from django.contrib.auth.decorators import login_required 
-from hrms.core.models import FinancialPeriod 
+from hrms.core.models import Employee, Department, FinancialPeriod 
 from hrms.leaves.models import LeaveApplication 
 from hrms.leaves.forms import LeaveApplicationForm
+from django.http import HttpResponseRedirect 
 
 # Create your views here.
 @login_required # Decorator to denote that only authenticated / authorised users can access this view  
@@ -22,17 +24,30 @@ def leaves_in_period(request, period_id):
 
 @login_required 	
 def apply(request): 
-    #c = {}
-    #c.update(csrf(request)) 
 	
     errors = []
     if request.method == 'POST':
         form = LeaveApplicationForm(request.POST)
         if form.is_valid():
+            employee = Employee.objects.get(user=request.user) 
+			
+			# Determine the department of an amployee so that its head can approve the leave 
+            manager = Employee.objects.get(user=employee.department.manager)
+			
+            # print manager.first_name 
+            # return 
+
             cd = form.cleaned_data 
-            #participant = Attendee (first_names=cd['first_names'], last_name=cd['last_name'], e_mail=cd['e_mail'], company_organization=cd['company_organization'], short_bio=cd['short_bio'] )
-            #participant.save() 
-            return HttpResponseRedirect('/leaves/apply/outcome/')
+			
+			# Collect the rest of the info from the application form 
+            application = LeaveApplication (applicant=employee, start_date=cd['start_date'], 
+			end_date=cd['end_date'], type=cd['type'], days_requested=0,description=cd['description'] , 
+			half_day=cd['half_day'], status=1, approved_by=manager)
+			
+			# Save the data
+            application.save() 
+            #return HttpResponseRedirect('/leaves/apply/outcome/')
+            return render_to_response('leaves/leaves_home.html') 
     else: 
         form = LeaveApplicationForm()
 		

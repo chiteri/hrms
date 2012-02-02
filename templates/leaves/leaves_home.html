@@ -5,7 +5,7 @@
 {% block content %}
 {% if periods %}  
 	<table> 
-	<tr> <td> &nbsp; </td> <td> <h4> Select a period within which to view leaves applied. </h4> </td> </tr> 
+	<tr> <td> &nbsp; </td> <td> <h4> <span class="alert-message block"> SELECT A PERIOD WITHIN WHICH TO VIEW LEAVES APPLIED. </span> </h4> </td> </tr> 
 	{% for period in periods %} 
 		<tr> <td> {{ period.id }}) </td> <td> <a href="/leaves/period/{{ period.id}}/"> {{ period }} </a> </td>  </tr> 
 	{% endfor %} 

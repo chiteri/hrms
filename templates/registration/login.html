@@ -9,10 +9,12 @@
 			<table class="loginform">
 				<tr>
 					<td><img src="/static/images/nuvola/22x22/actions/encrypted.png"></td>
-					<td class="colhead">Login to your account</td>
+					 <td class="colhead" > <span class="alert-message info"> ACCOUNT LOGIN </span> </td> 
 				</tr>
 				<tr>
-					<td colspan="2" align="center">Please login using your email address or username and password</td>
+					<td colspan="2" align="center"> 
+					<span class="alert-message info"> Please supply your email address or username and password </span>
+					</td>
 				</tr>
 				<tr>
 					<form method=post name="s_login" action="">{% csrf_token %} 

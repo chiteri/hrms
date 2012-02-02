@@ -4,7 +4,7 @@
 
 {% block content %}
 {% if leave_applications %}   
-	<table> <h4> Leave applications for period {{ period }} </h4>
+	<table> <h4> <span class="alert-message block"> LEAVE APPLICATIONS FOR PERIOD {{ period }} </span> </h4>
 	<tr> <td> <strong> App. ID. </strong> </td> <td> <strong> Application date </strong> </td> 
 	<td> <strong> Start Date </strong> </td> <td> <strong> Days </strong> </td> 
 	<td> <strong> Remarks </strong> </td> <td> <strong> Status </strong> </td> </tr> 
@@ -16,7 +16,7 @@
 	{% endfor %} 
 	</table> 
 {% else %} 
-    <h4> There are no leave applications made in this period. </h4> 
+    <p> <span class="alert-message error"> Sorry, there are no leave applications made within this period. </span> </p> 
 {% endif %} 
 {% endblock %}
 
