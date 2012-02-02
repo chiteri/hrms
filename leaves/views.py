@@ -1,3 +1,4 @@
+from django.core.context_processors import csrf
 from django.shortcuts import render_to_response 
 from django.contrib.auth.decorators import login_required 
 from hrms.core.models import FinancialPeriod 
@@ -8,8 +9,8 @@ from hrms.leaves.forms import LeaveApplicationForm
 @login_required # Decorator to denote that only authenticated / authorised users can access this view  
 def leaves_home(request):
     # employee = UserProfile.objects.get(user=request.user)
-    f = FinancialPeriod.objects.all() 
-    return render_to_response('leaves/leaves_home.html', {'user':request.user, 'periods':f }) 
+    fpr = FinancialPeriod.objects.all() 
+    return render_to_response('leaves/leaves_home.html', {'user':request.user, 'periods':fpr }) 
 
 @login_required 	
 def leaves_in_period(request, period_id): 
@@ -21,6 +22,19 @@ def leaves_in_period(request, period_id):
 
 @login_required 	
 def apply(request): 
-    form = LeaveApplicationForm() 
-    return render_to_response('leaves/application_form.html', {'form':form} )
+    #c = {}
+    #c.update(csrf(request)) 
+	
+    errors = []
+    if request.method == 'POST':
+        form = LeaveApplicationForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data 
+            #participant = Attendee (first_names=cd['first_names'], last_name=cd['last_name'], e_mail=cd['e_mail'], company_organization=cd['company_organization'], short_bio=cd['short_bio'] )
+            #participant.save() 
+            return HttpResponseRedirect('/leaves/apply/outcome/')
+    else: 
+        form = LeaveApplicationForm()
+		
+    return render_to_response('leaves/application_form.html', {'form':form}, context_instance=RequestContext(request) )
     
